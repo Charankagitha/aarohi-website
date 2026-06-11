@@ -62,6 +62,7 @@
             line-height: 1.6;
             overflow-x: hidden;
             background-image: url('https://images.unsplash.com/photo-1698993082050-19ca94c62fb8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-blend-mode: overlay;
             background-repeat: no-repeat;
             background-size: cover;
         }
@@ -70,7 +71,7 @@
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: var(--primary-navy); border-radius: 10px; }
 
-        .container {
+        .container {            
             max-width: 1280px;
             margin: 0 auto;
             padding: 0 30px;
@@ -547,6 +548,10 @@
             display: inline-block;
         }
         .features-grid {
+            max-width: 1280px;
+            background-color: rgba(255, 255, 255, 0.474);
+            background-blend-mode: overlay;
+            border-radius: 32px;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
@@ -593,7 +598,7 @@
         /* ---------- FIXED 4:3 ASPECT RATIO FOR ALL GALLERY IMAGE CONTAINERS ---------- */
         .gallery-card, .gallery-card-vertical {
             background: white;
-            border-radius: 25px;
+            border-radius: 10px;
             overflow: hidden;
             box-shadow: var(--shadow-md);
             transition: var(--transition);
@@ -784,6 +789,70 @@
             font-size: 1.8rem;
             cursor: pointer;
             color: #666;
+        }
+
+        /* Article Popup Modal Styles */
+        .article-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 2100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        .article-popup-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        .article-popup-modal {
+            background: white;
+            max-width: 600px;
+            width: 90%;
+            border-radius: 32px;
+            padding: 35px;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        .article-popup-modal h3 {
+            color: var(--primary-navy);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            padding-right: 30px;
+        }
+        .article-popup-date {
+            color: #718096;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            display: block;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+        .article-popup-content {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #1e293b;
+        }
+        .close-article-popup {
+            position: absolute;
+            top: 22px;
+            right: 28px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #94a3b8;
+            transition: var(--transition);
+        }
+        .close-article-popup:hover {
+            color: var(--primary-navy);
         }
 
         /* ---------- FOOTER ---------- */
@@ -982,6 +1051,18 @@
     </div>
 </div>
 
+<!-- ==================== ARTICLE DETAIL POPUP (READ MORE) ==================== -->
+<div id="articlePopupOverlay" class="article-popup-overlay">
+    <div class="article-popup-modal">
+        <span class="close-article-popup" id="closeArticlePopupBtn">&times;</span>
+        <h3 id="popupArticleTitle">Article Title</h3>
+        <span class="article-popup-date" id="popupArticleDate"></span>
+        <div class="article-popup-content" id="popupArticleContent">
+            <p>Full article content will be displayed here.</p>
+        </div>
+    </div>
+</div>
+
 <!-- ==================== 6. FOOTER ==================== -->
 <footer class="footer">
     <div class="container">
@@ -1041,7 +1122,12 @@
                               { title: "Student Entrance", desc: "First impression of our school.", img: "img/Se1.png" }, 
                               { title: "Pre-School Class Room", desc: "A nurturing environment for young learners.", img: "img/SE.png" }, 
                               { title: "Digital Learning", desc: "Modern technology integration in education.", img: "img/digitalclassroom.png" }, 
-                              { title: "Pre-School Interior", desc: "A welcoming space for young students.", img: "img/preschool2.png" } 
+                              { title: "Pre-School Interior", desc: "A welcoming space for young students.", img: "img/preschool2.png" },
+                              { title: "Library", desc: "A vast collection of books and resources.", img: "img/library.jpeg" }, 
+                              { title: "Play Room", desc: "Promoting physical fitness and teamwork.", img: "img/playroom.jpeg" }, 
+                              //{ title: "Science Lab", desc: "Equipped for hands-on experiments and discovery.", img: "img/sciencelab.png" }, 
+                              //{ title: "Art Room", desc: "Fostering creativity and artistic expression.", img: "img/artroom.png" }, 
+                              //{ title: "Music Room", desc: "Inspiring musical talents with state-of-the-art instruments.", img: "img/musicroom.png" }
                             ];
     const kollurGallery = [ { title: "Christmas Celebration", desc: "Festive atmosphere at kollur branch.", img: "Images/CC1.jpeg" }, 
                             { title: "New Year Celebration", desc: "Fresh starts and resolutions at kollur branch.", img: "Images/NYC1.jpeg" }, 
@@ -1053,15 +1139,24 @@
                             { title: "Christmas Celebration", desc: "Festive atmosphere at kollur branch.", img: "Images/CC2.jpeg" }, 
                             { title: "Science Exhibition", desc: "Innovative projects by young scientists.", img: "Images/SF3.jpeg" } 
                         ];
-    const hafizpetAwards = [ { title: "Indo Global Leaders Summit - 2025", desc: "Global recognition", img: "img/Certificate.png" } ];
-    const articlesList = [ { title: "Importance of Play-Based Learning", date: "March 2025", summary: "How activity-driven education boosts creativity and problem-solving skills in young children." }, { title: "CBSE Curriculum 2026-27 Updates", date: "February 2025", summary: "New changes in the academic structure and assessment patterns for holistic development." }, { title: "Digital Classrooms: Future of Education", date: "January 2025", summary: "How smart boards and interactive tools are transforming the learning experience." } ];
+    const hafizpetAwards = [ { title: "Indo Global Leaders Summit - 2025", desc: "Global recognition for leadership excellence.", img: "img/Certificate.png" },
+                            { title: "Research University Certificate - 2025", desc: "Research Excellence By Our Chairman", img: "img/Certificate1.png" },
+                        //{ title: "Best Teacher Award - 2025-26", desc: "Sharada Vidya Mandir High School", img: "img/Certificate3.png" },
+                        //{ title: "National Best Teacher Award - 2024-25", desc: "Dr. Radhakrishnan Teachers Self Help Group", img: "img/Certificate4.png" },
+                        //{ title: "Best National Educator Award - 2025-26", desc: "Class-X 100% results", img: "img/Certificate5.png" }
+
+                           ];
+    const articlesList = [ 
+        { title: "Importance of Play-Based Learning", date: "March 2025", summary: "How activity-driven education boosts creativity and problem-solving skills in young children.", fullContent: "Play-based learning is a cornerstone of early childhood education. At Aarohi AIS, we integrate structured play into our curriculum to foster social skills, emotional regulation, and cognitive flexibility. Research shows that children learn best when they are actively engaged in meaningful, hands-on experiences. Through role-playing, building blocks, and outdoor exploration, our students develop critical thinking and collaboration. Our faculty designs activities that align with learning goals while keeping the joy of discovery alive. This approach has led to improved attention spans, better peer relationships, and a love for learning that lasts a lifetime." },
+        { title: "CBSE Curriculum 2026-27 Updates", date: "February 2025", summary: "New changes in the academic structure and assessment patterns for holistic development.", fullContent: "The CBSE board has introduced significant updates for the 2026-27 academic year, focusing on competency-based learning and reducing rote memorization. The new pattern includes more internal assessments, project work, and skill-based subjects. At Aarohi AIS, we are adapting our teaching strategies to align with these changes, emphasizing critical analysis and real-world application. The updated curriculum also integrates vocational training from middle school onwards. Our teachers have undergone specialized training to implement these reforms effectively, ensuring students excel in both board exams and life skills." },
+        { title: "Digital Classrooms: Future of Education", date: "January 2025", summary: "How smart boards and interactive tools are transforming the learning experience.", fullContent: "Digital classrooms are revolutionizing education by making learning interactive and accessible. At Aarohi AIS, every classroom is equipped with smart boards, digital projectors, and personalized learning tablets for students. These tools enable teachers to present complex concepts through 3D models, animations, and live simulations. Students can access recorded lessons, submit assignments online, and collaborate on projects in real-time. The integration of AI-driven analytics also helps identify individual learning gaps, allowing for targeted intervention. Our digital initiative has increased student engagement by 40% and improved concept retention significantly." }
+    ];
     const hafizpetMapURL = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3805.583690620049!2d78.3536766!3d17.4796288!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93f34d33aa1b%3A0x2ecf193021ed2bbe!2sAarohi%20ais%20School!5e0!3m2!1sen!2sin!4v1781003341052";
     const kollurMapURL = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.6665461379143!2d78.26312457496951!3d17.427783101640525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcbedc10666277f%3A0x4506e95746886615!2sAarohi%20International%20School!5e0!3m2!1sen!2sin!4v1781177634516!5m2!1sen!2sin";
     function renderImg(src, alt, iconClass) { return `<img src="${src}" alt="${alt}" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fas ${iconClass}\' style=\\'font-size:4rem; color:var(--primary-navy);\\'></i>';">`; }
 
     const homeRender = () => `
         <div class="hero">
-            <!-- Beautifully animated centered logo before the welcome text -->
             <div class="hero-logo-container">
                 <img src="Images/logo.png" alt="Aarohi AIS School - Excellence in Education" class="hero-animated-logo" onerror="this.style.display='none'">
             </div>
@@ -1095,67 +1190,27 @@
         <div class="container">
         <div style="padding:20px 0 60px;">
         <div class="section-title">
-        <h2>Why Choose Aarohi AIS?</h2>
+        <h2 Style="color: white;">Why Choose Aarohi AIS?</h2>
         </div>
         <div class="features-grid">
-            <div class="feature-card">
-                <i class="fas fa-chalkboard-user"></i><h3>Expert Faculty</h3>
-                <p>Highly qualified educators dedicated to student success.</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-laptop-code"></i><h3>Smart Classes</h3>
-                <p>Tech-enabled classrooms for interactive learning.</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-trophy"></i><h3>Sports & Arts</h3>
-                <p>Holistic development through co-curricular excellence.</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-hand-sparkles"></i><h3>Values-Based Education</h3>
-                <p>Building character along with academic rigor.</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-desktop"></i><h3>Digital Classrooms</h3>
-                <p>Interactive learning spaces equipped with the latest technology.</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-bus"></i><h3>Transportation Facilities</h3>
-                <p>Safe and reliable transportation for all students.</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-flask"></i><h3>Well Equipped Labs</h3>
-                <p>State-of-the-art laboratories for hands-on learning.</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-book"></i><h3>Stacked Library</h3>
-                <p>A vast collection of books and resources for students to explore.</p>
-            </div>
+            <div class="feature-card"><i class="fas fa-chalkboard-user"></i><h3>Expert Faculty</h3><p>Highly qualified educators dedicated to student success.</p></div>
+            <div class="feature-card"><i class="fas fa-laptop-code"></i><h3>Smart Classes</h3><p>Tech-enabled classrooms for interactive learning.</p></div>
+            <div class="feature-card"><i class="fas fa-trophy"></i><h3>Sports & Arts</h3><p>Holistic development through co-curricular excellence.</p></div>
+            <div class="feature-card"><i class="fas fa-hand-sparkles"></i><h3>Values-Based Education</h3><p>Building character along with academic rigor.</p></div>
+            <div class="feature-card"><i class="fas fa-desktop"></i><h3>Digital Classrooms</h3><p>Interactive learning spaces equipped with the latest technology.</p></div>
+            <div class="feature-card"><i class="fas fa-bus"></i><h3>Transportation Facilities</h3><p>Safe and reliable transportation for all students.</p></div>
+            <div class="feature-card"><i class="fas fa-flask"></i><h3>Well Equipped Labs</h3><p>State-of-the-art laboratories for hands-on learning.</p></div>
+            <div class="feature-card"><i class="fas fa-book"></i><h3>Stacked Library</h3><p>A vast collection of books and resources for students to explore.</p></div>
+            <div class="feature-card"><i class="fas fa-snowflake"></i><h3>AC Campus</h3><p>Climate-controlled classrooms for a comfortable learning environment.</p></div>
+            <div class="feature-card"><i class="fas fa-hand-sparkles"></i><h3>Personality Development Activities</h3><p>Programs designed to enhance students' social and emotional skills.</p></div>
+            <div class="feature-card"><i class="fas fa-award"></i><h3>Recognitions & Awards</h3><p>Award-winning institution recognized for excellence in education.</p></div>
+            <div class="feature-card"><i class="fas fa-users"></i><h3>Inclusive Community</h3><p>A diverse and welcoming environment for all students and families.</p></div>
         </div>
     </div>`;
-    const aboutRender = () => `<div class="container" style="padding:60px 0;">
-        <div class="section-title"><h2>About Aarohi AIS</h2></div>
-        <div style="display:flex; gap:40px; flex-wrap:wrap; margin-bottom:50px; align-items:stretch;">
-            <div class="about-cards-wrapper">
-                <div class="vertical-pic-card">
-                    <div class="vertical-pic-img">${renderImg("img/building.png", "Campus Life", "fa-school")}</div>
-                    <h4>Hafizpet Campus</h4>
-                </div>
-                <div class="vertical-pic-card">
-                    <div class="vertical-pic-img">${renderImg("Images/building.png", "Student Experience", "fa-users")}</div>
-                    <h4>Kollur Campus</h4>
-                </div>
-            </div>
-            <div class="about-content-text">
-                <h3>Our Legacy & Mission</h3>
-                <p>Two vibrant branches, CBSE-inspired curriculum. We focus on academic excellence and character building, ensuring each child reaches their full potential in a nurturing environment. At Aarohi AIS, we believe in education that goes beyond textbooks—preparing students for life, leadership, and global citizenship.</p>
-                <p style="margin-top:15px;">With smart classrooms, sports facilities, and a holistic approach, we create a launchpad for every learner’s dreams.</p>
-            </div>
-        </div>
-        <div class="section-title" style="margin-top:20px;"><h2>Our Leadership</h2></div>
-        <div class="leadership-grid">${leadership.map(l => `<div class="leader-card"><div class="leader-content"><h3>${l.name}</h3><div class="designation">${l.role}</div><div class="quote">"${l.quote}"</div><div class="qualifications"><strong>📜 Education</strong><p>${l.qualifications}</p></div><div class="achievements"><strong>🏆 Achievements</strong><p>${l.achievements}</p></div></div><div class="leader-media"><div class="leader-img">${renderImg(l.imgFile, l.name, l.icon)}</div></div></div>`).join('')}</div>
-    </div>`;
+    const aboutRender = () => `<div class="container" style="padding:60px 0;"><div class="section-title"><h2>About Aarohi AIS</h2></div><div style="display:flex; gap:40px; flex-wrap:wrap; margin-bottom:50px; align-items:stretch;"><div class="about-cards-wrapper"><div class="vertical-pic-card"><div class="vertical-pic-img">${renderImg("img/building.png", "Campus Life", "fa-school")}</div><h4>Hafizpet Campus</h4></div><div class="vertical-pic-card"><div class="vertical-pic-img">${renderImg("Images/building.png", "Student Experience", "fa-users")}</div><h4>Kollur Campus</h4></div></div><div class="about-content-text"><h3>Our Legacy & Mission</h3><p>Two vibrant branches, CBSE-inspired curriculum. We focus on academic excellence and character building, ensuring each child reaches their full potential in a nurturing environment. At Aarohi AIS, we believe in education that goes beyond textbooks—preparing students for life, leadership, and global citizenship.</p><p style="margin-top:15px;">With smart classrooms, sports facilities, and a holistic approach, we create a launchpad for every learner’s dreams.</p></div></div><div class="section-title" style="margin-top:20px;"><h2>Our Leadership</h2></div><div class="leadership-grid">${leadership.map(l => `<div class="leader-card"><div class="leader-content"><h3>${l.name}</h3><div class="designation">${l.role}</div><div class="quote">"${l.quote}"</div><div class="qualifications"><strong>📜 Education</strong><p>${l.qualifications}</p></div><div class="achievements"><strong>🏆 Achievements</strong><p>${l.achievements}</p></div></div><div class="leader-media"><div class="leader-img">${renderImg(l.imgFile, l.name, l.icon)}</div></div></div>`).join('')}</div></div>`;
     const galleryRender = () => `<div class="container" style="padding:60px 0;"><div class="section-title"><h2>Our Glimpses</h2></div><div class="gallery-tabs"><button class="tab-btn active" data-branch="hafizpet" id="tabHafizpet">🏫 Hafizpet</button><button class="tab-btn" data-branch="kollur" id="tabkollur">🏡 kollur</button><button class="tab-btn" data-branch="awards" id="tabAwards">🏆 Awards</button></div><div id="hafizpetGalleryContainer" class="gallery-grid">${hafizpetGallery.map(i => `<div class="gallery-card"><div class="gallery-img">${renderImg(i.img,i.title,"fa-image")}</div><h4 style="padding:15px 15px 0;">${i.title}</h4><p style="padding:0 15px 15px;">${i.desc}</p></div>`).join('')}</div><div id="kollurGalleryContainer" class="gallery-grid" style="display:none;">${kollurGallery.map(i => `<div class="gallery-card"><div class="gallery-img">${renderImg(i.img,i.title,"fa-image")}</div><h4 style="padding:15px 15px 0;">${i.title}</h4><p style="padding:0 15px 15px;">${i.desc}</p></div>`).join('')}</div><div id="awardsGalleryContainer" style="display:none;"><div class="gallery-grid">${hafizpetAwards.map(a => `<div class="gallery-card-vertical"><div class="gallery-img-vertical">${renderImg(a.img,a.title,"fa-medal")}</div><h4>${a.title}</h4><p>${a.desc}</p></div>`).join('')}</div></div></div>`;
-    const articlesRender = () => `<div class="container" style="padding:60px 0;"><div class="section-title"><h2>📚 Articles & Insights</h2><p>Educational perspectives from Aarohi AIS</p></div><div class="articles-grid">${articlesList.map(a => `<div class="article-card"><span class="article-date"><i class="far fa-calendar-alt"></i> ${a.date}</span><h3>${a.title}</h3><p>${a.summary}</p><a href="#" style="color:var(--primary-navy); font-weight:600;">Read more →</a></div>`).join('')}</div></div>`;
+    
+    const articlesRender = () => `<div class="container" style="padding:60px 0;"><div class="section-title"><h2>📚 Articles & Insights</h2><p>Educational perspectives from Aarohi AIS</p></div><div class="articles-grid" id="articlesGridContainer">${articlesList.map((a, idx) => `<div class="article-card" data-article-index="${idx}"><span class="article-date"><i class="far fa-calendar-alt"></i> ${a.date}</span><h3>${a.title}</h3><p>${a.summary}</p><a href="#" class="read-more-link" data-article-index="${idx}" style="color:var(--primary-navy); font-weight:600; display:inline-block; margin-top:12px;">Read more →</a></div>`).join('')}</div></div>`;
     
     const contactRender = () => `<div class="container" style="padding: 60px 0;"><div class="section-title"><h2>Get in Touch</h2><p>We're here to answer your queries</p></div><div class="contact-wrapper"><div><div class="branch-card"><h3><i class="fas fa-building"></i> Hafizpet Campus</h3><p><i class="fas fa-location-dot"></i> Street No.24, Prem Nagar, Hafizpet, Hyderabad 500049</p><p><i class="fas fa-phone"></i> <a href="tel:+919652971908">+91 9652971908</a> <br><i class="fas fa-phone"></i> <a href="tel:+918328607235">+91 8328607235</a> <br><i class="fas fa-phone"></i> <a href="tel:+918121452322">+91 8121452322</a></p><p><i class="fas fa-envelope"></i> <a href="mailto:aarohiais26@gmail.com">aarohiais26@gmail.com</a></p></div><div class="branch-card"><h3><i class="fas fa-tree"></i> kollur Campus</h3><p><i class="fas fa-location-dot"></i> SY No.192, Plot no.493, Indra Reddy Nagar, Mirzaguda, Osman Nagar, Hyderabad 500075</p><p><i class="fas fa-phone"></i> <a href="tel:+918121452322">+91 8121452322</a><br><i class="fas fa-phone"></i> <a href="tel:+919652971908">+91 9652971908</a><br><i class="fas fa-phone"></i> <a href="tel:+918328607235">+91 8328607235</a></p><p><i class="fas fa-envelope"></i> <a href="mailto:aarohiais26@gmail.com">aarohiais26@gmail.com</a></p></div></div><div><div class="map-buttons"><button id="mapHafizpetBtn" class="map-btn active">📍 Hafizpet Map</button><button id="mapkollurBtn" class="map-btn">📍 kollur Map</button></div><div class="map-container"><iframe id="schoolMapFrame" src="${hafizpetMapURL}" allowfullscreen></iframe></div></div></div></div>`;
 
@@ -1171,6 +1226,20 @@
 
     function openAdmissionModal(e) { if(e) e.preventDefault(); document.getElementById('admissionModal').classList.add('active'); }
     function closeModal() { document.getElementById('admissionModal').classList.remove('active'); }
+    
+    // Article Popup Logic
+    function openArticlePopup(articleIndex) {
+        const article = articlesList[articleIndex];
+        if(!article) return;
+        document.getElementById('popupArticleTitle').innerText = article.title;
+        document.getElementById('popupArticleDate').innerHTML = `<i class="far fa-calendar-alt"></i> ${article.date}`;
+        document.getElementById('popupArticleContent').innerHTML = `<p>${article.fullContent || article.summary + " (Full article content will be updated soon.)"}</p>`;
+        document.getElementById('articlePopupOverlay').classList.add('active');
+    }
+    function closeArticlePopup() {
+        document.getElementById('articlePopupOverlay').classList.remove('active');
+    }
+
     let currentPage = 'home';
     function renderPage(pageId) {
         if(!pages[pageId]) return;
@@ -1197,6 +1266,16 @@
             const homeForm = document.getElementById('homeQuickForm');
             if(homeForm) homeForm.addEventListener('submit', async (e) => { e.preventDefault(); await submitToGoogleSheet(homeForm); });
         }
+        if(pageId === 'articles') {
+            const readMoreLinks = document.querySelectorAll('.read-more-link');
+            readMoreLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const idx = link.getAttribute('data-article-index');
+                    if(idx !== null) openArticlePopup(parseInt(idx));
+                });
+            });
+        }
         observeSections();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -1209,6 +1288,12 @@
         const closeBtn = document.getElementById('closeModalBtn'); if(closeBtn) closeBtn.addEventListener('click', closeModal);
         const modalOverlay = document.getElementById('admissionModal'); if(modalOverlay) modalOverlay.addEventListener('click', (e) => { if(e.target === modalOverlay) closeModal(); });
         const popupForm = document.getElementById('admissionForm'); if(popupForm) popupForm.addEventListener('submit', async (e) => { e.preventDefault(); await submitToGoogleSheet(popupForm); closeModal(); });
+        
+        // Article popup close events
+        const closeArticleBtn = document.getElementById('closeArticlePopupBtn');
+        const articlePopupOverlay = document.getElementById('articlePopupOverlay');
+        if(closeArticleBtn) closeArticleBtn.addEventListener('click', closeArticlePopup);
+        if(articlePopupOverlay) articlePopupOverlay.addEventListener('click', (e) => { if(e.target === articlePopupOverlay) closeArticlePopup(); });
     }
     function observeSections() { const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 }); document.querySelectorAll('#app > section, #app > div').forEach(s => observer.observe(s)); }
     window.onhashchange = () => { let hash = window.location.hash.slice(1); if(pages[hash]) renderPage(hash); else renderPage('home'); };

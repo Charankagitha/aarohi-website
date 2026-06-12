@@ -1011,6 +1011,718 @@
         }
         section { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
         section.visible { opacity: 1; transform: translateY(0); }
+        /* screen responsive media queries */
+        /* ==================== MOBILE RESPONSIVE CSS ==================== */
+/* Ensures all elements are fully responsive across all devices */
+
+/* Tablet and Medium Screens (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 25px;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-split {
+        gap: 30px;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 25px;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+    }
+}
+
+/* Mobile Screens (max-width: 768px) */
+@media (max-width: 768px) {
+    /* Container padding */
+    .container {
+        padding: 0 16px;
+    }
+    
+    /* Navigation Mobile Styles */
+    .merged-nav {
+        position: relative;
+    }
+    
+    .contact-bar {
+        display: none; /* Hide contact bar on mobile for cleaner header */
+    }
+    
+    .main-nav {
+        padding: 10px 0;
+    }
+    
+    .header-inner {
+        position: relative;
+    }
+    
+    .logo-area {
+        gap: 8px;
+    }
+    
+    .logo-img {
+        height: 55px;
+        max-width: 140px;
+    }
+    
+    .logo-text-fallback {
+        font-size: 1.2rem;
+    }
+    
+    .mobile-toggle {
+        display: block;
+        font-size: 1.5rem;
+        background: transparent;
+        border: none;
+        color: white;
+        cursor: pointer;
+        padding: 8px 12px;
+        z-index: 1001;
+    }
+    
+    .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--primary-navy);
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        gap: 15px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        z-index: 1000;
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .nav-menu.show {
+        display: flex;
+    }
+    
+    .nav-menu a {
+        padding: 10px 0;
+        width: 100%;
+        text-align: center;
+        font-size: 1rem;
+    }
+    
+    .admission-nav-btn {
+        padding: 10px 20px !important;
+        margin-top: 5px;
+    }
+    
+    /* Scrolling Banner Mobile */
+    .scrolling-banner {
+        padding: 8px 0;
+    }
+    
+    .banner-content {
+        font-size: 0.85rem;
+        animation: scrollText 18s linear infinite;
+    }
+    
+    /* Hero Section Mobile */
+    .hero-split {
+        flex-direction: column;
+        padding: 30px 0 40px;
+        gap: 30px;
+    }
+    
+    .hero-left {
+        text-align: center;
+        flex: auto;
+    }
+    
+    .hero-left h1 {
+        font-size: 1.8rem;
+        margin-bottom: 15px !important;
+    }
+    
+    .hero-left p {
+        font-size: 0.95rem;
+        margin: 15px 0;
+    }
+    
+    .hero-right {
+        width: 100%;
+        padding: 20px;
+        margin: 0 0 20px;
+    }
+    
+    .hero-logo-container {
+        margin-bottom: 15px;
+    }
+    
+    .hero-animated-logo {
+        max-width: 150px;
+    }
+    
+    /* Buttons Mobile */
+    .btn-primary, .btn-outline {
+        padding: 10px 24px;
+        font-size: 0.9rem;
+        margin: 5px 5px;
+    }
+    
+    /* Home Form Mobile */
+    .quick-form-title {
+        font-size: 1.4rem;
+    }
+    
+    .quick-form-sub {
+        font-size: 0.85rem;
+    }
+    
+    .form-row-dual {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .home-admission-form input,
+    .home-admission-form select,
+    .home-admission-form textarea {
+        padding: 10px 14px;
+        margin: 8px 0;
+        font-size: 0.9rem;
+    }
+    
+    /* Section Titles Mobile */
+    .section-title h2 {
+        font-size: 1.8rem;
+    }
+    
+    /* Features Grid Mobile */
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .feature-card {
+        padding: 20px;
+    }
+    
+    .feature-card i {
+        font-size: 1.8rem;
+    }
+    
+    .feature-card h3 {
+        font-size: 1.2rem;
+    }
+    
+    .feature-card p {
+        font-size: 0.85rem;
+    }
+    
+    /* Leadership Section Mobile */
+    .leadership-grid {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .leader-card {
+        flex-direction: column;
+        padding: 20px;
+        text-align: center;
+        gap: 20px;
+    }
+    
+    .leader-content {
+        text-align: center;
+        min-width: auto;
+    }
+    
+    .leader-content h3 {
+        font-size: 1.4rem;
+    }
+    
+    .designation {
+        font-size: 0.9rem;
+    }
+    
+    .quote {
+        font-size: 0.85rem;
+        padding: 10px 15px;
+        text-align: left;
+    }
+    
+    .qualifications p, .achievements p {
+        font-size: 0.8rem;
+        white-space: normal;
+    }
+    
+    .leader-media {
+        order: -1;
+    }
+    
+    .leader-img {
+        height: 160px;
+        width: 160px;
+        border-radius: 50%;
+        margin: 0 auto;
+    }
+    
+    /* About Section Mobile */
+    .about-cards-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .vertical-pic-card {
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    .about-content-text {
+        padding: 20px;
+    }
+    
+    .about-content-text h3 {
+        font-size: 1.3rem;
+    }
+    
+    /* Gallery Section Mobile */
+    .gallery-tabs {
+        gap: 12px;
+        margin: 20px 0 30px;
+    }
+    
+    .tab-btn {
+        padding: 8px 18px;
+        font-size: 0.85rem;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .gallery-card, .gallery-card-vertical {
+        max-width: 100%;
+    }
+    
+    /* Articles Section Mobile */
+    .articles-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        margin: 30px 0;
+    }
+    
+    .article-card {
+        padding: 20px;
+    }
+    
+    .article-card h3 {
+        font-size: 1.2rem;
+    }
+    
+    .article-card p {
+        font-size: 0.85rem;
+    }
+    
+    /* Article Popup Modal Mobile */
+    .article-popup-modal {
+        width: 92%;
+        padding: 25px 20px;
+        max-height: 80vh;
+    }
+    
+    .article-popup-modal h3 {
+        font-size: 1.4rem;
+        padding-right: 25px;
+    }
+    
+    .article-popup-content {
+        font-size: 0.9rem;
+    }
+    
+    .close-article-popup {
+        top: 18px;
+        right: 20px;
+        font-size: 1.6rem;
+    }
+    
+    /* Contact Section Mobile */
+    .contact-wrapper {
+        flex-direction: column !important;
+        gap: 25px;
+    }
+    
+    .branch-card {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .branch-card h3 {
+        font-size: 1.2rem;
+    }
+    
+    .branch-card p {
+        font-size: 0.85rem;
+        word-break: break-word;
+    }
+    
+    .map-buttons {
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    
+    .map-btn {
+        padding: 6px 16px;
+        font-size: 0.8rem;
+    }
+    
+    .map-container iframe {
+        height: 280px;
+    }
+    
+    /* Testimonials Mobile */
+    .testimonial-section {
+        padding: 30px 0;
+        border-radius: 24px;
+    }
+    
+    .testimonial-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .testimonial-card {
+        padding: 20px;
+    }
+    
+    .testimonial-img {
+        width: 65px;
+        height: 65px;
+    }
+    
+    .testimonial-card p {
+        font-size: 0.85rem;
+    }
+    
+    .testimonial-card h4 {
+        font-size: 0.9rem;
+    }
+    
+    /* Footer Mobile */
+    .footer {
+        padding: 40px 0 20px;
+    }
+    
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        text-align: center;
+    }
+    
+    .footer-col h4 {
+        border-left: none;
+        padding-left: 0;
+        border-bottom: 2px solid #FFD966;
+        display: inline-block;
+        padding-bottom: 8px;
+    }
+    
+    .footer-col p, .footer-col a {
+        font-size: 0.85rem;
+        justify-content: center;
+    }
+    
+    .footer-social {
+        justify-content: center;
+        gap: 20px;
+    }
+    
+    .copyright {
+        font-size: 0.7rem;
+        padding-top: 20px;
+    }
+    
+    .copyright small {
+        font-size: 0.65rem;
+    }
+    
+    /* Floating Buttons Mobile */
+    .floating-contact {
+        bottom: 15px;
+        right: 15px;
+        gap: 8px;
+    }
+    
+    .float-btn {
+        width: 48px;
+        height: 48px;
+        font-size: 1.2rem;
+    }
+    
+    .float-btn-text {
+        font-size: 0.75rem;
+        padding: 6px 12px;
+    }
+    
+    /* Modal Popup Mobile */
+    .admission-modal {
+        width: 92%;
+        padding: 25px 20px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    
+    .admission-modal h3 {
+        font-size: 1.4rem;
+    }
+    
+    .admission-modal input,
+    .admission-modal select,
+    .admission-modal textarea {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+        margin: 8px 0;
+    }
+    
+    .close-modal {
+        top: 15px;
+        right: 20px;
+        font-size: 1.6rem;
+    }
+}
+
+/* Small Mobile Screens (max-width: 480px) */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 12px;
+    }
+    
+    .hero-left h1 {
+        font-size: 1.5rem;
+    }
+    
+    .hero-left p {
+        font-size: 0.85rem;
+    }
+    
+    .hero-animated-logo {
+        max-width: 120px;
+    }
+    
+    .quick-form-title {
+        font-size: 1.2rem;
+    }
+    
+    .section-title h2 {
+        font-size: 1.5rem;
+    }
+    
+    .btn-primary, .btn-outline {
+        padding: 8px 20px;
+        font-size: 0.85rem;
+    }
+    
+    .feature-card {
+        padding: 15px;
+    }
+    
+    .feature-card i {
+        font-size: 1.5rem;
+    }
+    
+    .feature-card h3 {
+        font-size: 1rem;
+    }
+    
+    .leader-content h3 {
+        font-size: 1.2rem;
+    }
+    
+    .leader-img {
+        height: 130px;
+        width: 130px;
+    }
+    
+    .gallery-tabs {
+        gap: 8px;
+    }
+    
+    .tab-btn {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+    
+    .gallery-card h4, .gallery-card-vertical h4 {
+        font-size: 1rem;
+        padding: 10px 10px 0;
+    }
+    
+    .gallery-card p, .gallery-card-vertical p {
+        font-size: 0.75rem;
+        padding: 0 10px 12px;
+    }
+    
+    .article-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .map-container iframe {
+        height: 220px;
+    }
+    
+    .float-btn {
+        width: 42px;
+        height: 42px;
+        font-size: 1rem;
+    }
+    
+    .floating-contact {
+        bottom: 12px;
+        right: 12px;
+    }
+}
+
+/* Landscape Mode for Mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    .hero-split {
+        padding: 20px 0;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+    
+    .nav-menu {
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+    
+    .admission-modal {
+        max-height: 85vh;
+    }
+}
+
+/* Ensure images don't overflow on mobile */
+@media (max-width: 768px) {
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* Fix gallery image aspect ratio on mobile */
+    .gallery-img, .gallery-img-vertical {
+        padding-top: 75%; /* Maintain 4:3 ratio */
+    }
+    
+    /* Improve touch targets */
+    .nav-menu a,
+    .tab-btn,
+    .map-btn,
+    .btn-primary,
+    .btn-outline,
+    .float-btn,
+    .close-modal,
+    .close-article-popup {
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Better scrolling for modals */
+    .admission-modal,
+    .article-popup-modal {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Improve form elements on mobile */
+    input, select, textarea, button {
+        font-size: 16px; /* Prevents zoom on iOS */
+        border-radius: 25px;
+    }
+    
+    /* Better spacing for lists */
+    .contact-info {
+        gap: 12px;
+    }
+    
+    /* Ensure text doesn't overflow */
+    .branch-card p {
+        word-break: break-word;
+    }
+    
+    /* Improve readability */
+    body {
+        font-size: 15px;
+    }
+    
+    /* Better card hover on mobile (disable transform on touch) */
+    @media (hover: none) and (pointer: coarse) {
+        .feature-card:hover,
+        .leader-card:hover,
+        .vertical-pic-card:hover,
+        .gallery-card:hover,
+        .article-card:hover,
+        .testimonial-card:hover {
+            transform: none;
+        }
+        
+        .float-btn:hover {
+            transform: none;
+        }
+        
+        .btn-primary:hover,
+        .btn-outline:hover {
+            transform: translateY(0);
+        }
+    }
+}
+
+/* Fix for very small devices (max-width: 360px) */
+@media (max-width: 360px) {
+    .hero-left h1 {
+        font-size: 1.3rem;
+    }
+    
+    .quick-form-title {
+        font-size: 1.1rem;
+    }
+    
+    .section-title h2 {
+        font-size: 1.3rem;
+    }
+    
+    .tab-btn {
+        padding: 5px 10px;
+        font-size: 0.7rem;
+    }
+    
+    .branch-card h3 {
+        font-size: 1rem;
+    }
+    
+    .map-btn {
+        padding: 5px 12px;
+        font-size: 0.7rem;
+    }
+}
+
+/* Ensure proper display of banner on all mobile devices */
+@media (max-width: 768px) {
+    .banner-content {
+        white-space: nowrap;
+        display: inline-block;
+        padding: 0 20px;
+    }
+    
+    @keyframes scrollText {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-150%); }
+    }
+}
     </style>
 </head>
 <body>

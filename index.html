@@ -73,6 +73,7 @@
             line-height: 1.6;
             overflow-x: hidden;
             background-image: url('img/aarohibackground.png');
+            background-color:rgba(255, 255, 255, 0.314);
             background-blend-mode: overlay;
             background-repeat: no-repeat;
             background-size: cover;
@@ -1829,7 +1830,7 @@
         </div>
     </div>
 </div>
-
+<div class="elfsight-app-d52a401b-e272-41c9-81f2-fa81aac51d7c" data-elfsight-app-lazy></div>
 <!-- ==================== 6. FOOTER ==================== -->
 <footer class="footer">
     <div class="container">
@@ -1974,16 +1975,6 @@
                 <div class="feature-card"><i class="fas fa-users"></i><h3>Inclusive Community</h3><p>A diverse and welcoming environment for all students and families.</p></div>
             </div>
         </div>
-        <div class="testimonial-section">
-            <div class="container">
-            <div class="section-title">
-                <h2 style="color: navyblue;">What Our Student Parents Say...!</h2>
-            </div>
-            <div class="testimonial-grid">
-                <div class="testimonial-card"><img src="https://via.placeholder.com/150?text=Parent+1" alt="Parent 1" class="testimonial-img"><p>"Aarohi AIS has transformed our child's learning experience. The teachers are incredibly supportive, and the facilities are top-notch. We couldn't be happier with our choice!"</p><h4>- Ramesh Kumar, Parent</h4></div>
-                <div class="testimonial-card"><img src="https://via.placeholder.com/150?text=Parent+2" alt="Parent 2" class="testimonial-img"><p>"The personalized attention my daughter receives at Aarohi AIS is outstanding. The school's focus on holistic development has helped her grow academically and socially."</p><h4>- Sita Devi, Parent</h4></div>
-                <div class="testimonial-card"><img src="https://via.placeholder.com/150?text=Parent+3" alt="Parent 3" class="testimonial-img"><p>"Aarohi AIS's commitment to excellence is evident in every aspect of the school. From the curriculum to extracurricular activities, it's a fantastic environment for our son."</p><h4>- Anil Sharma, Parent</h4></div>            </div>
-            </div>
     </div> `;
     const aboutRender = () => `<div class="container" style="padding:60px 0;"><div class="section-title"><h2>About Aarohi AIS</h2></div><div style="display:flex; gap:40px; flex-wrap:wrap; margin-bottom:50px; align-items:stretch;"><div class="about-cards-wrapper"><div class="vertical-pic-card"><div class="vertical-pic-img">${renderImg("img/building.png", "Campus Life", "fa-school")}</div><h4>New Hafeezpet Campus</h4></div><div class="vertical-pic-card"><div class="vertical-pic-img">${renderImg("Images/building.png", "Student Experience", "fa-users")}</div><h4>Kollur Campus</h4></div></div><div class="about-content-text"><h3>Our Legacy & Mission</h3><p>Two vibrant branches, CBSE-inspired curriculum. We focus on academic excellence and character building, ensuring each child reaches their full potential in a nurturing environment. At Aarohi AIS, we believe in education that goes beyond textbooks—preparing students for life, leadership, and global citizenship.</p><p style="margin-top:15px;">With smart classrooms, sports facilities, and a holistic approach, we create a launchpad for every learner’s dreams.</p></div></div><div class="section-title" style="margin-top:20px;"><h2>Our Leadership</h2></div><div class="leadership-grid">${leadership.map(l => `<div class="leader-card"><div class="leader-content"><h3>${l.name}</h3><div class="designation">${l.role}</div><div class="quote">"${l.quote}"</div><div class="qualifications"><strong>📜 Education</strong><p>${l.qualifications}</p></div><div class="achievements"><strong>🏆 Achievements</strong><p>${l.achievements}</p></div></div><div class="leader-media"><div class="leader-img">${renderImg(l.imgFile, l.name, l.icon)}</div></div></div>`).join('')}</div></div>`;
     const galleryRender = () => `<div class="container" style="padding:60px 0;"><div class="section-title"><h2>Our Glimpses</h2></div><div class="gallery-tabs"><button class="tab-btn active" data-branch="hafizpet" id="tabHafizpet">🏫 New Hafeezpet</button><button class="tab-btn" data-branch="kollur" id="tabkollur">🏡 Kollur</button><button class="tab-btn" data-branch="awards" id="tabAwards">🏆 Awards</button></div><div id="hafizpetGalleryContainer" class="gallery-grid">${hafizpetGallery.map(i => `<div class="gallery-card"><div class="gallery-img">${renderImg(i.img,i.title,"fa-image")}</div><h4 style="padding:15px 15px 0;">${i.title}</h4><p style="padding:0 15px 15px;">${i.desc}</p></div>`).join('')}</div><div id="kollurGalleryContainer" class="gallery-grid" style="display:none;">${kollurGallery.map(i => `<div class="gallery-card"><div class="gallery-img">${renderImg(i.img,i.title,"fa-image")}</div><h4 style="padding:15px 15px 0;">${i.title}</h4><p style="padding:0 15px 15px;">${i.desc}</p></div>`).join('')}</div><div id="awardsGalleryContainer" style="display:none;"><div class="gallery-grid">${hafizpetAwards.map(a => `<div class="gallery-card-vertical"><div class="gallery-img-vertical">${renderImg(a.img,a.title,"fa-medal")}</div><h4>${a.title}</h4><p>${a.desc}</p></div>`).join('')}</div></div></div>`;
@@ -2077,5 +2068,6 @@
     window.onhashchange = () => { let hash = window.location.hash.slice(1); if(pages[hash]) renderPage(hash); else renderPage('home'); };
     renderPage(window.location.hash.slice(1) && pages[window.location.hash.slice(1)] ? window.location.hash.slice(1) : 'home');
 </script>
+<script src="https://apps.elfsight.com/p/platform.js" defer></script>
 </body>
 </html>
